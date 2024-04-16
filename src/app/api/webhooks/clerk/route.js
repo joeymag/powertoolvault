@@ -6,6 +6,6 @@ import { WebhookEvent } from '@clerk/nextjs/server'
 
 import { createUser } from '@/lib/actions/user.action' 
 
-export async function POST(req: Request) {
+export async function POST(req) {
 
 }
