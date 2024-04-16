@@ -34,19 +34,19 @@ const body = JSON.stringify(payload);
 // Create a new Svix instance with your secret.
 const wh = new Webhook(WEBHOOK_SECRET);
 
-let evt;
 // Verify the payload with the headers
+let evt;
 try {
-    evt = wh.verify(body, {
-        "svix-id": svix_id,
-        "svix-timestamp": svix_timestamp,
-        "svix-signature": svix_signature,
-    });
+  evt = wh.verify(body, {
+    "svix-id": svix_id,
+    "svix-timestamp": svix_timestamp,
+    "svix-signature": svix_signature,
+  });
 } catch (err) {
-    console.error('Error verifying webhook:', err);
-    return new Response('Error occured', {
-        status: 400
-    })
+  console.error('Error verifying webhook:', err);
+  return new Response('Error occured', {
+    status: 400
+  })
 }
 
 // Get the ID and type
