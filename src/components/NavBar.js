@@ -6,49 +6,44 @@ import { auth, UserButton } from "@clerk/nextjs"
 
 
 
-const NavBar = async() => {
+const NavBar = async () => {
   const { userID } = await auth();
   const isauth = !!userID;
 
-  return (
-    <div>
-      <ul className='flex justify-between items-center m-5'>
-      <div className='flex items-center  '>
-        <Image
-          src={tstrade}
-          alt='logo'
-          className='w-[100px] h-[50px]'
-        />
-        <div className='flex gap-10'>
-          <Link href='/'>
-            <li>Home</li>
-          </Link>
-          {isauth ? (
-            <>
-              <Link href='/signin'>
-                <li>SignIn </li>
+ 
+
+    return (
+      <div className="flex flex-full items-center  gap-5 w-full p-5 bg-black border-red-500 border-b-2 border-solid">
+        <div className='content-start  '>
+          <Image
+            src={tstrade}
+            alt='logo'
+            className='w-[100px] h-[50px]'
+          />
+        </div>
+        <div className="flex flex-auto justify-center gap-5">
+          <ul className="flex text-white flex-auto justify-center gap-5">
+              <Link href='/'>
+                <li>Home</li>
               </Link>
-              <Link href='/signup'>
-                <li>signup</li>
+              <Link href='/profile'>
+                <li>Profile</li>
               </Link>
-            </>
-          ) : (
-            <>
               <Link href='/Dashbord'>
                 <li>Dashbord</li>
               </Link>
               <li><UserButton afterSignOutUrl="/" /></li>
-            </>
-          )}
-          <Link href='/profile'>
-            <li>Profile</li>
-          </Link>
-        </div>
-      </div>
-      </ul>
-      </div>
-     
-  )
-}
+            </ul>
+          </div>
+         <ul className="flex flex-auto justify-end gap-5 text-white ">
+              <Link href='/sign-in'>
+                <li>Sign In</li>  
+              </Link>
+              <Link href='/sign-up'>
+                <li>Sign Up</li>
+              </Link>
+            </ul>
+          </div>);
+  }
 
-export default NavBar
+  export default NavBar;
