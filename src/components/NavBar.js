@@ -36,6 +36,10 @@ const NavBar = async () => {
             </ul>
           </div>
          <ul className="flex flex-auto justify-end gap-5 text-white ">
+              <Link href='/Dashbord'>
+                <li>Dashbord</li>
+              </Link>
+              <li><UserButton afterSignOutUrl="/" /></li>
               <Link href='/sign-in'>
                 <li>Sign In</li>  
               </Link>
