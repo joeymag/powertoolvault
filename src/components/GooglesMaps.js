@@ -26,14 +26,13 @@ function GooglesMaps() {
         const latitude = position.coords.latitude; 
         const longitude = position.coords.longitude;
         console.log(latitude, longitude);
-        setuserlocation({ coords: { latitude, longitude } });
+        setuserlocation({ coords: { longitude, longitude } });
       });
     };
 
     getUserLocation(); // Call the function to get user location
 
   }, []);
-  console.log(userlocation);
 
 
   const options = {
@@ -41,9 +40,11 @@ function GooglesMaps() {
   }
 
   const center = {
-    lat: userlocation?.coords.latitude,
-    lng: userlocation?.coords.longitude
+    longitude: userlocation.coords.longitude,
+    longitude: userlocation.coords.longitude
   };
+
+  console.log(center);
     // ... rest of the position array
 
   const { isLoaded } = useJsApiLoader({
@@ -78,7 +79,7 @@ function GooglesMaps() {
           <MarkerF
             clickable={true}
             draggable={true}
-            position={center}
+            position={[51.65568015754571, -0.2700700027106776]}
             icon={{
               url: "https://img.icons8.com/color/48/000000/marker.png",
               scaledSize: new window.google.maps.Size(30, 30)
