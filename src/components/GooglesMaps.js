@@ -3,41 +3,48 @@
 import React, { useEffect, useState }  from 'react'
 import { GoogleMap,  MarkerF,  useJsApiLoader } from '@react-google-maps/api'
 import Data from "../app/Dashbord/Data"
-import { set } from 'mongoose';
+import { user } from '@nextui-org/react';
+import { get, set } from 'mongoose';
+import { Users } from 'lucide-react';
 
 const containerStyle = {
   width:  '100%',
   height: `auto`,
 };
 //51.65568015754571, -0.2700700027106776
-const center = {
-  lat: 51.65568015754590,
-  lng: -0.2700700027106799
-};
+
 
 
 function GooglesMaps() {
-  const [userlocation, setuserlocation] = useState([]);
+  const [userlocation, setuserlocation] = useState(null);
   const [Userdata, setUserdata] = useState(Data.Userdata);
+  // ...
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      setuserlocation([position.coords.latitude, position.coords.longitude]);
-    });
+    const getUserLocation = () => {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        const latitude = position.coords.latitude; 
+        const longitude = position.coords.longitude;
+        console.log(latitude, longitude);
+        setuserlocation({ coords: { latitude, longitude } });
+      });
+    };
+
+    getUserLocation(); // Call the function to get user location
+
   }, []);
   console.log(userlocation);
+
 
   const options = {
     mapId: '7c166c8f9b4ad3e',
   }
 
-  const position = [
-    {
-      lat: 51.65701152036001,
-      lng: -0.27193473325311135
-    },
+  const center = {
+    lat: userlocation?.coords.latitude,
+    lng: userlocation?.coords.longitude
+  };
     // ... rest of the position array
-  ];
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
@@ -54,10 +61,13 @@ function GooglesMaps() {
     setMap(null);
   }, []);
 
+
+ 
+
   return isLoaded ? (
       <GoogleMap
         mapContainerStyle={containerStyle}
-        zoom={10}
+        zoom={15}
         onLoad={onLoad}
         onUnmount={onUnmount}
         center={center}
@@ -68,7 +78,7 @@ function GooglesMaps() {
           <MarkerF
             clickable={true}
             draggable={true}
-            position={"[userlocation.coords.latitude, userlocation.coords.longitude]"}
+            position={center}
             icon={{
               url: "https://img.icons8.com/color/48/000000/marker.png",
               scaledSize: new window.google.maps.Size(30, 30)
