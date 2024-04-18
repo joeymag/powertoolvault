@@ -11,7 +11,6 @@ const containerStyle = {
   width:  '100%',
   height: `auto`,
 };
-//51.65568015754571, -0.2700700027106776
 
 
 
@@ -29,8 +28,7 @@ function GooglesMaps() {
       });
     };
 
-    getUserLocation(); // Call the function to get user location
-
+    getUserLocation(); 
   }, []);
 
 
@@ -42,14 +40,14 @@ function GooglesMaps() {
     longitude: userlocation?.coords.longitude,
     latitude: userlocation?.coords.latitude,
   };
-  console.log(center)
+  console.log(center);
 
     // ... rest of the position array
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: "AIzaSyC8wJzl21T3a6J5cprcc9MnMQE4zuo1wVQ"
-  });
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS
+   });
 
   const [map, setMap] = React.useState(null);
 
@@ -93,7 +91,7 @@ function GooglesMaps() {
             clickable={true}
             draggable={true}
             key={id}
-            position={Userdata}
+            position={""}
             icon={{
               url: "https://img.icons8.com/color/48/van.png",
               scaledSize: new window.google.maps.Size(30, 30)
